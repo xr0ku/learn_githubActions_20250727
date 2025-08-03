@@ -14,6 +14,8 @@ export const getAllTodos = async (_req: Request, res: Response) => {
 
 const TodoCreateSchema = z.object({
   title: z.string().min(1, "Title is required."),
+  category: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 });
 
 export const createTodo = async (req: Request, res: Response) => {
@@ -24,8 +26,14 @@ export const createTodo = async (req: Request, res: Response) => {
     });
   }
 
+  const { title, category, tags } = parse.data;
+
   const newTodo = await prisma.todo.create({
-    data: { title: parse.data.title },
+    data: {
+      title,
+      category,
+      tags: tags ?? [],
+    },
   });
 
   res.status(201).json(newTodo);
