@@ -43,9 +43,10 @@ function App() {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div style={{ padding: 30 }}>
+    <div className="app">
       <h1>Todo App</h1>
       <form
+        className="todo-form"
         onSubmit={(e) => {
           e.preventDefault();
           if (!title.trim()) return;
@@ -53,17 +54,19 @@ function App() {
         }}
       >
         <input
+          className="todo-input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter todo title"
         />
+        <button className="add-btn" type="submit">Add</button>
       </form>
 
       <ul>
         {todos?.map((todo) => (
-          <li key={todo.id}>
+          <li key={todo.id} className="todo-item">
             {todo.title}
-            <button onClick={() => deleteTodo.mutate(todo.id)}>X</button>
+            <button className="delete-btn" onClick={() => deleteTodo.mutate(todo.id)}>X</button>
           </li>
         ))}
       </ul>
