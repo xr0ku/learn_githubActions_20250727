@@ -10,4 +10,5 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setupTests.ts",
   },
+  base: process.env.GITHUB_PAGES ? "/learn_githubActions_20250727/" : "/",
 });
